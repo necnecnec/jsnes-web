@@ -65,10 +65,10 @@ class WheelPad extends Component {
             case "B": window.virtualGamePad.buttons[1].pressed = value; break;
             case "SELECT": window.virtualGamePad.buttons[2].pressed = value; break;
             case "START": window.virtualGamePad.buttons[3].pressed = value; break;
-            case "LEFT": window.virtualGamePad.axes[0] = -1; break;
-            case "RIGHT": window.virtualGamePad.axes[0] = 1; break;
-            case "UP": window.virtualGamePad.axes[1] = -1; break;
-            case "DOWN": window.virtualGamePad.axes[1] = 1; break;
+            case "LEFT": window.virtualGamePad.axes[0] = -1; window.virtualGamePad.axes[1] = 0; break;
+            case "RIGHT": window.virtualGamePad.axes[0] = 1; window.virtualGamePad.axes[1] = 0; break;
+            case "UP": window.virtualGamePad.axes[1] = -1; window.virtualGamePad.axes[0] = 0; break;
+            case "DOWN": window.virtualGamePad.axes[1] = 1; window.virtualGamePad.axes[0] = 0; break;
             case "END": window.virtualGamePad.axes[1] = 0; window.virtualGamePad.axes[0] = 0; break;
             default: console.error("unrecognized Type");
         }

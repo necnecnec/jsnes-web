@@ -6,14 +6,14 @@ import config from "./config";
 import ControlsModal from "./ControlsModal";
 import Emulator from "./Emulator";
 import RomLibrary from "./RomLibrary";
-
+import Anime4K from "anime4K"
 import "./RunPage.css";
 
 function loadBinary(path, callback, handleProgress) {
   var req = new XMLHttpRequest();
   req.open("GET", path);
   req.overrideMimeType("text/plain; charset=x-user-defined");
-  req.onload = function() {
+  req.onload = function () {
     if (this.status === 200) {
       if (req.responseText.match(/^<!doctype html>/i)) {
         // Got HTML back, so it is probably falling back to index.html due to 404
@@ -27,7 +27,7 @@ function loadBinary(path, callback, handleProgress) {
       callback(new Error(req.statusText));
     }
   };
-  req.onerror = function() {
+  req.onerror = function () {
     callback(new Error(req.statusText));
   };
   req.onprogress = handleProgress;
@@ -72,6 +72,11 @@ class RunPage extends Component {
           <ul className="navbar-nav ml-auto mr-auto">
             <li className="navitem">
               <span className="navbar-text mr-3">{this.state.romName}</span>
+              {/* <canvas width={256 * 2} height={240 * 2} ref={enhance => {
+                this.enhance = enhance;
+
+
+              }} /> */}
             </li>
           </ul>
           <ul className="navbar-nav" style={{ width: "200px" }}>
@@ -99,48 +104,48 @@ class RunPage extends Component {
         {this.state.error ? (
           this.state.error
         ) : (
-          <div
-            className="screen-container"
-            ref={el => {
-              this.screenContainer = el;
-            }}
-          >
-            {this.state.loading ? (
-              <Progress
-                value={this.state.loadedPercent}
-                style={{
-                  position: "absolute",
-                  width: "70%",
-                  left: "15%",
-                  top: "48%"
-                }}
-              />
-            ) : this.state.romData ? (
-              <Emulator
-                romData={this.state.romData}
-                paused={this.state.paused}
-                ref={emulator => {
-                  this.emulator = emulator;
-                }}
-              />
-            ) : null}
+            <div
+              className="screen-container"
+              ref={el => {
+                this.screenContainer = el;
+              }}
+            >
+              {this.state.loading ? (
+                <Progress
+                  value={this.state.loadedPercent}
+                  style={{
+                    position: "absolute",
+                    width: "70%",
+                    left: "15%",
+                    top: "48%"
+                  }}
+                />
+              ) : this.state.romData ? (
+                <Emulator
+                  romData={this.state.romData}
+                  paused={this.state.paused}
+                  ref={emulator => {
+                    this.emulator = emulator;
+                  }}
+                />
 
-            {/* TODO: lift keyboard and gamepad state up */}
-            {this.state.controlsModalOpen && (
-              <ControlsModal
-                isOpen={this.state.controlsModalOpen}
-                toggle={this.toggleControlsModal}
-                keys={this.emulator.keyboardController.keys}
-                setKeys={this.emulator.keyboardController.setKeys}
-                promptButton={this.emulator.gamepadController.promptButton}
-                gamepadConfig={this.emulator.gamepadController.gamepadConfig}
-                setGamepadConfig={
-                  this.emulator.gamepadController.setGamepadConfig
-                }
-              />
-            )}
-          </div>
-        )}
+              ) : null}
+              {/* TODO: lift keyboard and gamepad state up */}
+              {this.state.controlsModalOpen && (
+                <ControlsModal
+                  isOpen={this.state.controlsModalOpen}
+                  toggle={this.toggleControlsModal}
+                  keys={this.emulator.keyboardController.keys}
+                  setKeys={this.emulator.keyboardController.setKeys}
+                  promptButton={this.emulator.gamepadController.promptButton}
+                  gamepadConfig={this.emulator.gamepadController.gamepadConfig}
+                  setGamepadConfig={
+                    this.emulator.gamepadController.setGamepadConfig
+                  }
+                />
+              )}
+            </div>
+          )}
       </div>
     );
   }
@@ -210,6 +215,18 @@ class RunPage extends Component {
 
   handleLoaded = data => {
     this.setState({ running: true, loading: false, romData: data });
+    // const scaler = Anime4K.Scaler(this.enhance.getContext('webgl'));
+    // let stopped = false;
+    // let canvas = this.emulator.screen.canvas;
+    // let ctx = canvas.getContext("2d");
+    // const loop = () => {
+    //   if (stopped) return;
+    //   let imagedata = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    //   scaler.inputImage(imagedata);
+    //   scaler.resize(2.0, {});
+    //   requestAnimationFrame(loop);
+    // };
+    // requestAnimationFrame(loop);
   };
 
   handlePauseResume = () => {

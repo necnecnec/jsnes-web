@@ -5,6 +5,7 @@
   "private": true,
   "homepage": ".",
   "dependencies": {
+    "anime4k": "^1.0.1",
     "bootstrap": "4.2.1",
     "jsnes": "git://github.com/bfirsh/jsnes.git",
     "nipplejs": "^0.8.5",

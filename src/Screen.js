@@ -17,6 +17,7 @@ class Screen extends Component {
           this.canvas = canvas;
         }}
       />
+
     );
   }
 
