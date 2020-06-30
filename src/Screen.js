@@ -57,7 +57,7 @@ class Screen extends Component {
     var i = 0;
     for (var y = 0; y < SCREEN_HEIGHT; ++y) {
       for (var x = 0; x < SCREEN_WIDTH; ++x) {
-        i = y * 256 + x;
+        i = y * SCREEN_WIDTH + x;
         // Convert pixel from NES BGR to canvas ABGR
         this.buf32[i] = 0xff000000 | buffer[i]; // Full alpha
       }

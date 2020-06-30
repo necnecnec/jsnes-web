@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 import GoogleAnalytics from "react-ga";
-import { BrowserRouter, Route } from "react-router-dom";
+import { HashRouter, Route } from "react-router-dom";
 import ListPage from "./ListPage";
 import RunPage from "./RunPage";
+import MobRunPage from "./MobRunPage";
+import WheelPad from "./WheelPad"
 import config from "./config";
 import { handleError } from "./utils";
 import "./App.css";
@@ -29,14 +31,16 @@ class App extends Component {
       );
     }
     return (
-      <BrowserRouter>
+      <HashRouter>
         <div className="App">
           <Route exact path="/" component={ListPage} />
           <Route exact path="/run" component={RunPage} />
           <Route exact path="/run/:slug" component={RunPage} />
+          <Route exact path="/mobrun/:slug" component={MobRunPage} />
+          <Route exact path="/test" component={WheelPad} />
           <Route path="/" render={this.recordPageview} />
         </div>
-      </BrowserRouter>
+      </HashRouter>
     );
   }
 

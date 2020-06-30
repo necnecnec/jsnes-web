@@ -34,10 +34,12 @@ export default class GamepadController {
   };
 
   poll = () => {
-    const gamepads = navigator.getGamepads
+    let gamepads = navigator.getGamepads
       ? navigator.getGamepads()
       : navigator.webkitGetGamepads();
-
+    if (window.virtualGamePad && !gamepads[0]) {
+      gamepads = [window.virtualGamePad];
+    }
     const usedPlayers = [];
 
     for (let gamepadIndex = 0; gamepadIndex < gamepads.length; gamepadIndex++) {
@@ -185,7 +187,7 @@ export default class GamepadController {
 
   startPolling = () => {
     if (!(navigator.getGamepads || navigator.webkitGetGamepads)) {
-      return { stop: () => {} };
+      return { stop: () => { } };
     }
 
     let stopped = false;

@@ -3,10 +3,12 @@
   "version": "0.1.0",
   "license": "Apache-2.0",
   "private": true,
+  "homepage": ".",
   "dependencies": {
     "bootstrap": "4.2.1",
     "jsnes": "git://github.com/bfirsh/jsnes.git",
-    "node-sass": "^4.13.1",
+    "nipplejs": "^0.8.5",
+    "node-sass": "^4.14.1",
     "prop-types": "^15.7.2",
     "raven-js": "^3.27.2",
     "react": "^16.7.0",
@@ -24,7 +26,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && xcopy build .\\platform\\electron-quick-start\\webdist\\ \\s",
     "test": "prettier-check src/**/*.js && react-scripts test",
     "eject": "react-scripts eject",
     "format": "prettier --write src/**/*.js"
